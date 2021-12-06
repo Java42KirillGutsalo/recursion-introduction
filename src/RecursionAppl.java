@@ -1,3 +1,4 @@
+import org.hamcrest.core.IsEqual;
 
 public class RecursionAppl {
 	
@@ -23,15 +24,20 @@ public static long factorial (int n) {
  * 4. No additional static field;
  */
 static public long pow (int a, int b) {
-//	if(b < 0) {
-//		throw new IllegalArgumentException(" number can't be a negative");
-//	}
-//	if(b == 0) {
-//		return 1;
-//	}
-//	return a * pow(a, b - 1);
-	//TODO according to the requirements
-	return 0;
+	if(b < 0) {
+		throw new IllegalArgumentException(" number can't be a negative");
+	}
+	if(b == 0) {
+		return 1;
+	}
+	return multiplay(a, pow(a, b - 1));
+}
+
+private static long multiplay(int x, long y) {
+	if (y == 0) {
+		return 0;
+	}
+	return y < 0 ? x + multiplay(x, y - 1) : -x + multiplay(x, y + 1);
 }
 
 /**
@@ -60,6 +66,40 @@ private static long sum(int firstIndex, int[] array) {
  * 4. No static fields;
  */
 public static int square(int x) {
-	return 0;
+	if (x < 0) {
+		return square(-x);
+	}
+	if (x == 0) {
+		return 0;
+	}
+	//(x - 1)^2 = x^2 - 2x + 1 => x^2 = (x - 1)^2 + 2x - 1
+	return x + x + square(x - 1) - 1;
+}
+
+/**
+ * 
+ * @param str
+ * @param substr
+ * @return true if a given 'substr' is indeed the substring of a given string
+ * Challenges: 
+ * 1. To apply only following methods of the class String: 
+  		charAt(int ind); String substring(int ind); int length();
+ * 2. No cycles
+ */
+public static boolean isSubstring(String str, String substr) {
+	if(str.length() < substr.length()) {
+		return false;
+	}
+	return isEqual(str, substr) ? true : isSubstring(str.substring(1), substr);
+}
+
+private static boolean isEqual(String str, String substr) {
+	if(substr.length() == 0) {
+		return true;
+	}
+	if(str.charAt(0) == substr.charAt(0)) {
+		return isEqual(str.substring(1), substr.substring(1));
+	}
+	return false;
 }
 }

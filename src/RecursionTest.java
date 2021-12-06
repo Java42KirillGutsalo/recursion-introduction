@@ -61,4 +61,11 @@ class RecursionTest {
 		assertEquals(4, RecursionAppl.square(-2));
 		assertEquals(100, RecursionAppl.square(10));
 	}
+	
+	@Test
+	void isSubstrTest() {
+		assertFalse(RecursionAppl.isSubstring("sona", "sna"));
+		assertTrue(RecursionAppl.isSubstring("sosona", "na"));
+		assertTrue(RecursionAppl.isSubstring("sosona", "sos"));
+	}
 }
